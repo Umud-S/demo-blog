@@ -15,7 +15,7 @@ export const updatePostAC = (newText) => {//ActionCreater
     }
 }
 
-let initialState={
+let profilePage={
     posts: [
         {id: 1, message: 'salam', likes: 15},
         {id: 2, message: 'Eleyke salam', likes: 35}
@@ -23,7 +23,7 @@ let initialState={
     newPostText: 'UmudS'
 }
 
-let profileReducer = (state=initialState, action) => {
+let profileReducer = (state=profilePage, action) => {
     switch (action.type) {
         case ADD_POST:
             let newPost = {

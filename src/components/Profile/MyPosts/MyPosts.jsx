@@ -11,18 +11,15 @@ const MyPosts = (props) => {
     ));
 
     // let text = React.createRef();
-    let addPost = (e) => {
+    let onAddPost = (e) => {
         let newText = e.target.value;
-        let action = addPostAC(newText);
-        props.dispatch(action);
-        // props.addPost(newText);
-        // props.onUpdateNewPostText('');
+        props.addPost(newText);
+        props.onUpdateNewPostText('');
     };
     let onPostChange = (e) => {
         let newText = e.target.value;
-        // props.onUpdateNewPostText(newText);
-        let action = updatePostAC(newText);
-        props.dispatch(action);
+        props.onUpdateNewPostText(newText);
+
     }
     return (
         <div className={p.posts}>
@@ -36,7 +33,7 @@ const MyPosts = (props) => {
             </div>
             <div>
                 <button className={p.buttonPostAdd}
-                        onClick={addPost}>Add Post
+                        onClick={onAddPost}>Add Post
                 </button>
             </div>
             {postDatas}
