@@ -12,13 +12,11 @@ const MyPosts = (props) => {
 
     // let text = React.createRef();
     let onAddPost = (e) => {
-        let newText = e.target.value;
-        props.addPost(newText);
-        props.onUpdateNewPostText('');
+        props.addPost(e.target.value);
+        props.postChange('');
     };
     let onPostChange = (e) => {
-        let newText = e.target.value;
-        props.onUpdateNewPostText(newText);
+        props.postChange(e.target.value);// give value of textarea
 
     }
     return (

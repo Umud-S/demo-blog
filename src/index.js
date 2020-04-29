@@ -7,21 +7,23 @@ import * as serviceWorker from './serviceWorker';
 import store from "./redux/redux-store";
 import {Provider} from "react-redux";
 
-let reRender = () => {
-    ReactDOM.render(
-        <React.StrictMode>
-            <BrowserRouter>
-                <Provider store={store}>
-                    <App/>
-                </Provider>
-                {/*<App store={store} />*/}
-            </BrowserRouter>
-        </React.StrictMode>,
-        document.getElementById('root')
-    );
-}
-reRender(store.getState());
-store.subscribe(reRender);
+// let reRender = () => {
+ReactDOM.render(
+    <React.StrictMode>
+        <BrowserRouter>
+            <Provider store={store}>
+                <App/>
+            </Provider>
+            {/*<App store={store} />*/}
+        </BrowserRouter>
+    </React.StrictMode>,
+    document.getElementById('root')
+);
+// }
+
+
+// reRender(store.getState());
+// store.subscribe(reRender);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
