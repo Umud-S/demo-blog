@@ -22,12 +22,6 @@ let mapDispatchToProps = dispatch => {
 const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 export default DialogsContainer;
 
-
-
-
-
-
-//
 // const DialogsContainer = (props) => {
 //     let state = props.store.getState();
 //     let addButtonClick = (newText) => {
@@ -44,5 +38,4 @@ export default DialogsContainer;
 //                      textChange={textChange}
 //         />
 //     );
-//
 // }

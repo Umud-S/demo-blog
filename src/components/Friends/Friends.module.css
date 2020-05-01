@@ -1,0 +1,119 @@
+* {
+    padding: 0px;
+}
+
+:root {
+    --padding10px: 10px;
+}
+
+.wrapper {
+    padding: var(--padding10px);
+    margin: 10px;
+    display: grid;
+    grid-template-rows: 120px;
+    grid-template-columns: 2fr 5fr;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imgLogo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.buttonFollow {
+    width: fit-content;
+    padding: 3px 10px 3px 10px;
+    margin-top: 5px;
+    border-radius: 3px;
+    background-color: teal;
+    color: white;
+}
+
+.content {
+    display: grid;
+    grid-template-rows: 100px;
+    padding: 3px 10px 3px 10px;
+    grid-template-columns: 5fr 5fr;
+}
+
+.nameStatus {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.countryCity {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-around;
+}
+
+.contentBorder {
+    border: 5px solid green;
+    border-image: url(https://www.w3schools.com/cssref/border.png) 25 stretch;
+    margin-left: 5px;
+}
+
+.buttonReadMore {
+    width: 150px;
+    height: 50px;
+    border-radius: 15px;
+    background-color: teal;
+    color:white;
+    font-size: 20px;
+    justify-self: center;
+}
+.friendsContent{
+    display: grid;
+}
+.pagination{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+}
+.paginationSpan{
+    display: flex;
+    padding: 10px;
+    width: fit-content;
+    color: white;
+    font-weight: bold;
+    font-size: 17px;
+    display: flex;
+    flex-flow: row wrap;
+}
+/*.paginationSpan:hover{*/
+/*    color: gold;*/
+/*    font-size: 20px;*/
+/*}*/
+.paginationSpan span{
+    padding: 10px;
+    transition: 0.5s;
+
+}
+.paginationSpan span:hover{
+    color: gold;
+    font-size: 20px;
+    /*transform: rotate(360deg);*/
+    /*padding: 5px;*/
+}
+.paginationSpan span:active{
+    font-size: 18px;
+    color: red;
+}
+.active{
+    position: relative;
+    /*padding: 6px;*/
+    bottom: 2px;
+    font-size: 20px;
+    color: black;
+}

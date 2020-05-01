@@ -49,7 +49,7 @@ let dialogReducer = (state=initialState, action) => {
             }
         }
         case UPDATE_MESSAGE_TEXT: {
-            let stateCopy = {...state};
+            // let stateCopy = {...state};
             // stateCopy.newMessageText = action.newText;
             // return stateCopy;
             return {
