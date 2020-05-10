@@ -39,3 +39,22 @@ export default DialogsContainer;
 //         />
 //     );
 // }
+
+// let mapStateToProps = state => {
+//     return {
+//         newMessageText: state.messagePage.newMessageText,
+//         messagePage: state.messagePage
+//     }
+// }
+// let mapDispatchToProps = dispatch => {
+//     return {
+//         addButtonClick: (newText) => {
+//             dispatch(addMessageAC(newText));
+//         },
+//         textChange: (newText) => {
+//             dispatch(updateMessageTextChangeAC(newText));
+//         }
+//     }
+// }
+// const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+// export default DialogsContainer;

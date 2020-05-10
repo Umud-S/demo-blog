@@ -1,7 +1,7 @@
 import React from 'react';
 
 const FOLLOW = 'FOLLOW';
-export const followAC = (userId) => {
+export const follow = (userId) => {
     return {
         type: FOLLOW,
         userId: userId
@@ -9,7 +9,7 @@ export const followAC = (userId) => {
 }
 
 const UNFOLLOW = 'UNFOLLOW';
-export const unfollowAC = (userId) => {
+export const unfollow = (userId) => {
     return {
         type: UNFOLLOW,
         userId: userId
@@ -17,40 +17,48 @@ export const unfollowAC = (userId) => {
 }
 
 const SET_USERS = 'SET_USERS';
-export  const setUsersAC=(users)=>{
+export  const setUsers=(users)=>{
     return{
         type:SET_USERS,
         users
     }
 }
 const SET_CURRENT_PAGE='SET_CURRENT_PAGE';
-export const setCurPageAC=(currentPage)=>{
+export const setCurPage=(currentPage)=>{
     return{
         type:SET_CURRENT_PAGE,
         currentPage
     }
 }
 const SET_PER_PAGE='SET_PER_PAGE';
-export const setPerPageAC=(perPage)=>{
+export const setPerPage=(perPage)=>{
     return{
         type:SET_PER_PAGE,
-        perPage:perPage
+        perPage   // sinonim perPage:perPage
+
     }
 }
 
 const TOTAL_PAGE='TOTAL_PAGE';
-export const setTotalPageAC=(totalPage)=>{
+export const setTotalPage=(totalPage)=>{
     return{
         type:TOTAL_PAGE,
-        totalPage:totalPage
+        totalPage
     }
 }
-
+const  IS_LOADING='IS_LOADING';
+export const isLoading=(isLoadingStatus)=>{
+    return {
+        type:IS_LOADING,
+        isLoadingStatus
+    }
+}
 let initialState = {
     users: [],
     currentPage:1,
     perPage:5,
-    totalPage:112
+    totalPage:112,
+    isLoadingStatus:false
 }
 let friendsReducer = (state = initialState, action) => {
 
@@ -99,6 +107,11 @@ let friendsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 totalPage: action.totalPage
+            }
+        case IS_LOADING:
+            return {
+                ...state,
+                isLoadingStatus:action.isLoadingStatus
             }
         default :
             return state;

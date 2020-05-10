@@ -1,0 +1,16 @@
+.loadingDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    width: 240px;
+    height: 240px;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.loadingImg {
+    width: 440px;
+    height: 400px;
+    display: flex;
+}

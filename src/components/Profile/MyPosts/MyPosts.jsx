@@ -1,7 +1,6 @@
 import React from 'react';
 import p from './MyPosts.module.css';
 import Post from './Post/Post';
-import {addPostAC, updatePostAC} from "../../../redux/profileReducer";
 
 
 const MyPosts = (props) => {
@@ -13,10 +12,10 @@ const MyPosts = (props) => {
     // let text = React.createRef();
     let onAddPost = (e) => {
         props.addPost(e.target.value);
-        props.postChange('');
+        props.updatePost('');
     };
     let onPostChange = (e) => {
-        props.postChange(e.target.value);// give value of textarea
+        props.updatePost(e.target.value);// give value of textarea
 
     }
     return (
