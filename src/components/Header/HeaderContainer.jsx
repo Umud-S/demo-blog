@@ -3,17 +3,15 @@ import Header from "./Header";
 import * as axios from "axios";
 import {connect} from "react-redux";
 import {setUserData} from "../../redux/authReducer";
+import {authAPI} from "../../api/api";
 
 class HeaderContainer extends React.Component{
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`,
-            {
-                withCredentials:true //qeydiyyatdan kecibmi?
-            })
+       authAPI.auth()
             .then(response=>{
                 // debugger;
-                if(response.data.resultCode===0){//user eger saytda qeydiyyatdan kecibse sifir qaytarir
-                    let {id, login, email}=response.data.data; // datani parchalayiriq
+                if(response.resultCode===0){//user eger saytda qeydiyyatdan kecibse sifir qaytarir
+                    let {id, login, email}=response.data; // datani parchalayiriq
                     this.props.setUserData(id, email, login); // datani gonderirik yeni state kimi
                     }
         })

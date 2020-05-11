@@ -2,25 +2,47 @@ import React from "react";
 import style from './../Friends.module.css';
 import {NavLink} from "react-router-dom";
 
-class User extends React.Component {
+class UserLocal extends React.Component {
+
     render() {
-        // debugger;
-        return (<div className={style.wrapper}>
+        // let tegDisable = React.createRef();
+        return (<div className={style.wrapper} key={this.props.id}>
         <span className={style.contentBorder}>
         <div className={style.logo}>
         <NavLink to={`/profile/${this.props.id}`}>
             <img className={style.imgLogo} src={this.props.img} alt="logo"/>
         </NavLink>
             {(this.props.isFollowed) ?
-                <button disabled={this.props.isFollowClicked.some(id=>id==this.props.id)} onClick={() => {
-                    this.props.followUser(this.props.id);}
-                } className={style.buttonFollow}>Follow</button>
-                : <button disabled={this.props.isFollowClicked.some(id=>id==this.props.id)} onClick={() => {
-                    this.props.unfollowUser(this.props.id);
-                }} className={style.buttonFollow}>Unfollow
-                </button>}
-                </div>
-                </span>
+
+                <button
+                    // ref={tegDisable}
+                    onClick={(event) => {
+                    let target = event.target;
+                    target.disabled= true;
+                    target.innerText='please Wait';
+                    setTimeout(() => {
+                            this.props.friendUnFollow(this.props.id);
+                            target.disabled = false;
+
+                    }, 2000)
+                }} className={style.buttonFollow}>Follow</button>
+                : <button
+                    // ref={tegDisable}
+                    onClick={(event) => {
+                    let target = event.target;
+                    target.disabled= true;
+
+                    target.innerText='please Wait';
+                    setTimeout(() => {
+                            this.props.friendFollow(this.props.id);
+                            target.disabled = false;
+                        }
+                        , 2000)
+                }}
+                          className={style.buttonFollow}>Unfollow</button>}
+
+        </div>
+    </span>
                 <div className={style.contentBorder}>
                     <div className={style.content}>
                         <div className={style.nameStatus}>
@@ -38,9 +60,12 @@ class User extends React.Component {
     }
 }
 
-export default User;
+export default UserLocal;
 
 
+// let text = React.createRef();
+// text.current.value ile teqin valuesin ala bilerik
+// ref={text} tagin icine yaza bilerik
 //
 // const User = (props) => {
 // // console.log(props.isFollowed);

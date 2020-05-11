@@ -1,16 +1,11 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
-    follow,
-    unfollow,
-    isLoading,
-    setCurPage,
-    setPerPage,
-    setTotalPage,
-    setUsers
+    setCurPage, setPerPage,
+    getUsers, followUser, unfollowUser
 } from "../../redux/friendsReducer";
 import Users from "./Users";
-import * as axios from 'axios';
+import UsersLocal from "./UsersLocal";
 
 let mapStateToProps = state => {
     return {
@@ -18,76 +13,46 @@ let mapStateToProps = state => {
         currentPage: state.friendsPage.currentPage,
         perPage: state.friendsPage.perPage,
         totalPage: state.friendsPage.totalPage,
-        isLoadingStatus: state.friendsPage.isLoadingStatus
+        isLoadingStatus: state.friendsPage.isLoadingStatus,
+        isFollowClicked: state.friendsPage.isFollowClicked
     }
 }
 
 class UserContainer extends React.Component {
     componentDidMount() {
-        this.props.isLoading(true);
-        // // console.log(this.props);
-        // if (this.props.users.length == 0) {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.perPage}`,{
-            // withCredentials:true
-        })
-            .then(response => {
-                    // console.log(response.data.totalCount)
-                    this.props.isLoading(false);
-                    this.props.setUsers(response.data.items);
-                    this.props.setTotalPage(response.data.totalCount)
-                }
-            )
+        // debugger;
+        this.props.getUsers(this.props.currentPage, this.props.perPage);
     }
 
     onPageChanged = (pageNumber) => {
-        this.props.isLoading(true);
         if (pageNumber != this.props.currentPage) {
             this.props.setCurPage(pageNumber);
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.perPage}`,{
-                // withCredentials:true
-            })
-                .then(response => {
-                        // console.log(response.data.totalCount)
-                        this.props.isLoading(false);
-                        this.props.setUsers(response.data.items);
-                    }
-                )
+            this.props.getUsers(pageNumber, this.props.perPage);
         }
     }
 
     onMoreButtonClick = () => {
         // debugger;
-        this.props.isLoading(true);
         this.props.setPerPage(this.props.perPage + 5);
         let newPageSize = this.props.perPage + 5;
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${newPageSize}`,{
-            // withCredentials:true
-        })
-            .then(response => {
-                    // console.log(response.data.totalCount)
-                    this.props.isLoading(false);
-                    this.props.setUsers(response.data.items);
-                }
-            )
+        this.props.getUsers(this.props.currentPage,newPageSize);
+
     }
 
     render() {
         return <Users {...this.props}
                       onPageChanged={this.onPageChanged}
                       onMoreButtonClick={this.onMoreButtonClick}
-                      // onFollow={this.onFollow}
         />
     }
 }
 
 export default connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setUsers,
+    followUser,
+    unfollowUser,
     setCurPage,
     setPerPage,
-    setTotalPage,
-    isLoading
+    getUsers,
 })(UserContainer);
 
 

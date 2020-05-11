@@ -1,4 +1,5 @@
 import React from 'react';
+import {profileAPI} from "../api/api";
 
 const ADD_POST = 'ADD-POST';
 export const addPost = (newText) => {//ActionCreater
@@ -19,16 +20,22 @@ export const setProfile=(profile)=>{
         return {type: SET_PROFILE,
             profile
         }
-
 }
-
+const IS_LOADING = 'IS_LOADING';
+export const isLoading = (isLoadingStatus) => {
+    return {
+        type: IS_LOADING,
+        isLoadingStatus
+    }
+}
 let initialState={
     posts: [
         {id: 1, message: 'salam', likes: 15},
         {id: 2, message: 'Eleyke salam', likes: 35}
     ],
     newPostText: 'UmudS',
-    profile:[]
+    profile:[],
+    isLoadingStatus:true
 }
 
 let profileReducer = (state=initialState, action) => {
@@ -59,11 +66,28 @@ let profileReducer = (state=initialState, action) => {
                 newPostText : action.newText
             }
         }
-
+        case IS_LOADING:
+            return {
+                ...state,
+                isLoadingStatus: action.isLoadingStatus
+            }
         default :
             return state;
     }
 }
+export  const getProfile=(userId)=> {
+    return (dispatch) => {
+        dispatch(isLoading(true));
+        profileAPI.getProfile(userId)
+            .then(response => {
+                // debugger;
+                dispatch(isLoading(false));
+                dispatch(setProfile(response))
+            })
+    }
+}
+
+
 export default profileReducer;
 
 
