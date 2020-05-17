@@ -1,26 +1,28 @@
 import React from 'react';
-import {addMessageAC, updateMessageTextChangeAC} from "../../redux/dialogReducer";
+import {addMessage, updateMessageTextChange} from "../../redux/dialogReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
+import {compose} from "redux";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 let mapStateToProps = state => {
     return {
-        newMessageText: state.messagePage.newMessageText,
-        messagePage: state.messagePage
+        messagePage: state.messagePage,
+        isAuth: state.auth.isAuth
     }
 }
-let mapDispatchToProps = dispatch => {
-    return {
-        addButtonClick: (newText) => {
-            dispatch(addMessageAC(newText));
-        },
-        textChange: (newText) => {
-            dispatch(updateMessageTextChangeAC(newText));
-        }
+
+class DialogsContainer extends React.Component{
+    render() {
+        return <Dialogs {...this.props}/>
     }
 }
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
-export default DialogsContainer;
+export default compose(
+    connect(mapStateToProps, {
+        addMessage
+    }),
+    WithAuthRedirect
+)(DialogsContainer)
 
 // const DialogsContainer = (props) => {
 //     let state = props.store.getState();
@@ -39,7 +41,17 @@ export default DialogsContainer;
 //         />
 //     );
 // }
-
+//______________________
+// let mapDispatchToProps = dispatch => {
+//     return {
+//         addButtonClick: (newText) => {
+//             dispatch(addMessageAC(newText));
+//         },
+//         textChange: (newText) => {
+//             dispatch(updateMessageTextChangeAC(newText));
+//         }
+//     }
+// }
 // let mapStateToProps = state => {
 //     return {
 //         newMessageText: state.messagePage.newMessageText,

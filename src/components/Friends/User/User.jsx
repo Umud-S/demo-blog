@@ -12,11 +12,11 @@ class User extends React.Component {
             <img className={style.imgLogo} src={this.props.img} alt="logo"/>
         </NavLink>
             {(this.props.isFollowed) ?
-                <button disabled={this.props.isFollowClicked.some(id=>id==this.props.id)} onClick={() => {
-                    this.props.followUser(this.props.id);}
+                <button disabled={this.props.isFollowClicked.some(id=>id==this.props.id)}
+                        onClick={() => {this.props.unfollowUser(this.props.id);}
                 } className={style.buttonFollow}>Follow</button>
-                : <button disabled={this.props.isFollowClicked.some(id=>id==this.props.id)} onClick={() => {
-                    this.props.unfollowUser(this.props.id);
+                : <button disabled={this.props.isFollowClicked.some(id=>id==this.props.id)}
+                          onClick={() => {this.props.followUser(this.props.id);
                 }} className={style.buttonFollow}>Unfollow
                 </button>}
                 </div>

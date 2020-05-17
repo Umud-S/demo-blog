@@ -21,7 +21,6 @@ const Users = (props) => {
               isFollowClicked={props.isFollowClicked}
               followUser={props.followUser}
               unfollowUser={props.unfollowUser}
-              followClickedToggle={props.followClickedToggle}
         />
     )
     //page pagination

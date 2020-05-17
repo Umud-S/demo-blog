@@ -6,6 +6,8 @@ import {
 } from "../../redux/friendsReducer";
 import Users from "./Users";
 import UsersLocal from "./UsersLocal";
+import {compose} from "redux";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 let mapStateToProps = state => {
     return {
@@ -30,7 +32,6 @@ class UserContainer extends React.Component {
             this.props.getUsers(pageNumber, this.props.perPage);
         }
     }
-
     onMoreButtonClick = () => {
         // debugger;
         this.props.setPerPage(this.props.perPage + 5);
@@ -38,7 +39,6 @@ class UserContainer extends React.Component {
         this.props.getUsers(this.props.currentPage,newPageSize);
 
     }
-
     render() {
         return <Users {...this.props}
                       onPageChanged={this.onPageChanged}
@@ -46,14 +46,26 @@ class UserContainer extends React.Component {
         />
     }
 }
+export default compose(
+    // WithAuthRedirect,
+    connect(mapStateToProps, {
+        followUser,
+        unfollowUser,
+        setCurPage,
+        setPerPage,
+        getUsers,
+    })
+)(UserContainer)
 
-export default connect(mapStateToProps, {
-    followUser,
-    unfollowUser,
-    setCurPage,
-    setPerPage,
-    getUsers,
-})(UserContainer);
+
+//
+// export default connect(mapStateToProps, {
+//     followUser,
+//     unfollowUser,
+//     setCurPage,
+//     setPerPage,
+//     getUsers,
+// })(UserContainer);
 
 
 // let mapDispatchToProps = dispatch => {

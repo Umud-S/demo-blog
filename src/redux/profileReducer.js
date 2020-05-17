@@ -5,16 +5,10 @@ const ADD_POST = 'ADD-POST';
 export const addPost = (newText) => {//ActionCreater
     return {
         type: ADD_POST,
-        message: newText
+        newText
     }
 }
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-export const updatePost = (newText) => {//ActionCreater
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        newText: newText
-    }
-}
+
 const SET_PROFILE='SET-PROFILE';
 export const setProfile=(profile)=>{
         return {type: SET_PROFILE,
@@ -28,14 +22,22 @@ export const isLoading = (isLoadingStatus) => {
         isLoadingStatus
     }
 }
+const SET_STATUS = 'SET_STATUS';
+export const setStatus = (status) => {
+    return {
+        type: SET_STATUS,
+        status
+    }
+}
+
 let initialState={
     posts: [
         {id: 1, message: 'salam', likes: 15},
         {id: 2, message: 'Eleyke salam', likes: 35}
     ],
-    newPostText: 'UmudS',
     profile:[],
-    isLoadingStatus:true
+    isLoadingStatus:true,
+    status:'status no loaded yet'
 }
 
 let profileReducer = (state=initialState, action) => {
@@ -46,25 +48,23 @@ let profileReducer = (state=initialState, action) => {
                 profile: [action.profile]
             }
         }
+        case SET_STATUS:{
+            return {
+                ...state,
+                status: action.status
+            }
+        }
         case ADD_POST: {
             let newPost = {
                 id: 3,
-                message: state.newPostText,
+                message: action.newText,
                 likes: 0
             }
             return {
                 ...state,
                 posts : [...state.posts, newPost],
-                newPostText : ''
             }
 
-        }
-        case UPDATE_NEW_POST_TEXT: {
-            let stateCopy = {...state};
-            return {
-                ...state,
-                newPostText : action.newText
-            }
         }
         case IS_LOADING:
             return {
@@ -86,8 +86,25 @@ export  const getProfile=(userId)=> {
             })
     }
 }
-
-
+export const getStatus=(userId)=>{
+    return (dispatch)=>{
+        // dispatch(isLoading(true));
+        profileAPI.getStatus(userId).then(response=>{
+            // console.log(response);
+            // dispatch(isLoading(false));
+            dispatch(setStatus(response))
+        })
+    }
+}
+export const updateStatus=(status)=>{
+    return (dispatch)=>{
+        profileAPI.updateStatus(status).then(response=>{
+            if(response.resultCode===0) {
+                dispatch(setStatus(status))
+            }
+        })
+    }
+}
 export default profileReducer;
 
 

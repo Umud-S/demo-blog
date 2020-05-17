@@ -9,6 +9,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import FriendsContainer from "./components/Friends/FriendContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import LoginPage from "./components/Login/Login";
 
 const App = (props) => {
     return (
@@ -24,6 +25,7 @@ const App = (props) => {
                 <Route path='/music' component={Music}/>
                 <Route path='/settings' component={Settings}/>
                 <Route path='/friends' render={()=><FriendsContainer/>}/>
+                <Route path='/login' render={()=><LoginPage/>}/>
             </div>
         </div>
     );

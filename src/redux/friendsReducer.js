@@ -147,29 +147,29 @@ export const getUsers = (currentPage, perPage) => {  //Thunkcreater
             )
     }
 }
-export const followUser = (id) => {
+export const followUser = (userId) => {
     return (dispatch) => {
-        dispatch(followClickedToggle(true,id));
-        followAPI.follow(id)
+        dispatch(followClickedToggle(true,userId));
+        followAPI.follow(userId)
             .then(response => {
                 // console.log(response);
                 if (response.resultCode === 0) {
-                    dispatch(follow(id));
+                    dispatch(follow(userId));
                 }
-                dispatch(followClickedToggle(false,id));
+                dispatch(followClickedToggle(false,userId));
             })
     }
 }
-export const unfollowUser = (id) => {
+export const unfollowUser = (userId) => {
     return (dispatch) => {
-        dispatch(followClickedToggle(true,id));
-        followAPI.unfollow(id)
+        dispatch(followClickedToggle(true,userId));
+        followAPI.unfollow(userId)
             .then(response => {
                 // console.log(response);
                 if (response.resultCode === 0) {
-                    dispatch(unfollow(id));
+                    dispatch(unfollow(userId));
                 }
-                dispatch(followClickedToggle(false,id));
+                dispatch(followClickedToggle(false,userId));
             })
     }
 }

@@ -2,22 +2,19 @@ import * as axios from "axios";
 
 const instance = axios.create({
         baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-        // withCredentials:true, //qeydiyyatdan kecibmi?
+        withCredentials:true, //qeydiyyatdan kecibmi?
         headers: {
-            'API-KEY': 'b1775b2f-c3a5-4509-8dc9-90b5629de7c3'
+            'API-KEY': 'c049891b-f6ef-4d52-862c-63c7e877115f'
         }
-
-
     }
 );
 
 export const usersAPI = {
     getUsers(currentPage = 1, perPage = 5) {
-        return instance(`users?page=${currentPage}&count=${perPage}`, {
+        return instance.get(`users?page=${currentPage}&count=${perPage}`, {
             // withCredentials:true
         })
             .then(response => {
-                    // console.log(response.data.totalCount)
                     return response.data;
                 }
             )
@@ -26,30 +23,39 @@ export const usersAPI = {
 
 export const authAPI = {
     auth() {
-        return instance(`/auth/me`, {withCredentials: true}
+        return instance.get(`/auth/me`
         ).then(response => response.data)
+    },
+    login(email, password, rememberMe){
+        return instance.post(`auth/login`,{
+            email, password, rememberMe
+        } ).then(response=>response.data)
     }
 }
 
 export const profileAPI = {
-    getProfile(userId = 2) {
-
-        return instance.get(`/profile/` + userId).then(response => response.data)
-
+    getProfile(userId = 8111) {
+        return instance.get(`/profile/${userId}`).then(response => response.data)
+    },
+    getStatus(userId = 8111) {
+        return instance.get(`/profile/status/${userId}`).then(response => response.data)
+    },
+    updateStatus(status) {
+        return instance.put(`/profile/status/`, {status: status}).then(response => response.data)
     }
 }
 
 export const followAPI = {
-    follow(id) {
-        return instance.post(`/follow/${id}`, {
+    follow(userId) {
+        return instance.post(`/follow/${userId}`, {
             withCredintals: true
         })
-            .then(response => response)
+            .then(response => response.data)
     },
-    unfollow(id) {
-        return instance.delete(`/follow/${id}`, {
+    unfollow(userId) {
+        return instance.delete(`/follow/${userId}`, {
             withCredintals: true
         })
-            .then(response => response)
+            .then(response => response.data)
     }
 }
