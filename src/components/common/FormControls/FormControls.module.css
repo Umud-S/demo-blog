@@ -1,0 +1,29 @@
+.formControl{
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    padding: 10px;
+}
+
+.errorBorder{
+    border: 2px solid red;
+}
+textarea{
+    padding: 5px;
+    margin: 0px 10px 10px 0px;
+    border-radius: 8px;
+    display: flex;
+    max-width: 400px;
+    max-height: 400px;
+}
+.formControl span{
+    color: red;
+}
+
+/*.textArea {*/
+/*    border-radius: 8px;*/
+/*    padding: 5px;*/
+/*    display: flex;*/
+/*    max-width: 400px;*/
+/*    max-height: 400px;*/
+/*    flex-wrap: wrap;*/
+/*}*/

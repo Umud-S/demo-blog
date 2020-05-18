@@ -2,11 +2,11 @@ import React from 'react';
 import {authAPI} from "../api/api";
 
 const SET_USER_DATA='SET_USER_DATA';
-export const setUserData=(id,email,login)=>{
+export const setUserData=(id,email,login,isAuth)=>{
     return{
         type:SET_USER_DATA,
-        data:{
-            id,email,login
+        payload:{
+            id,email,login,isAuth
         }
     }
 }
@@ -39,15 +39,10 @@ let authReducer = (state = initialState, action) => {
         case SET_USER_DATA:
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.payload,
+                isAuth: action.payload.isAuth
             }
-        // case LOGIN:{
-        //     return {
-        //         ...state,
-        //         ...action.data
-        //     }
-        // }
+
         case IS_LOADING:
             return {
                 ...state,
@@ -65,7 +60,7 @@ export const authMe=()=>{
                 // debugger;
                 if(response.resultCode===0){                //user eger saytda qeydiyyatdan kecibse sifir qaytarir
                     let {id, login, email}=response.data;   // datani parchalayiriq
-                    dispatch(setUserData(id, email, login)); // datani gonderirik yeni state kimi
+                    dispatch(setUserData(id, email, login,true)); // datani gonderirik yeni state kimi
                 }
             })
     }
@@ -74,15 +69,20 @@ export const loginMe=(email,password,rememberMe)=>{
     return (dispatch)=>{
         authAPI.login(email,password,rememberMe).then(response=>{
                 if(response.resultCode===0){
-                    let {email,password,rememberMe}=response.data;   // datani parchalayiriq
-                    // dispatch(setUserData(email,password,rememberMe))
-                    console.log('thunk:')
-                    console.log(email)
-                    console.log(password)
-                    console.log(rememberMe)
-                }
+                    dispatch(authMe());
+                    }
         })
-
     }
 }
+export const logOutMe=()=>{
+    return (dispatch)=>{
+        authAPI.logOut().then(response=>{
+                if(response.resultCode===0){
+                    dispatch(setUserData(null, null, null,false))
+                    }
+        })
+    }
+}
+
+
 export default authReducer;

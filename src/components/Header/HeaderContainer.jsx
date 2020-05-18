@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from "./Header";
 import {connect} from "react-redux";
-import {authMe} from "../../redux/authReducer";
+import {authMe,logOutMe} from "../../redux/authReducer";
 
 class HeaderContainer extends React.Component{
     componentDidMount() {
@@ -18,4 +18,4 @@ let mapStateToProps=(state)=>({
     login:state.auth.login
 })
 // with react-redux connect method we give state and thunk from reducer to Container component
-export default connect(mapStateToProps,{authMe})(HeaderContainer) ;
+export default connect(mapStateToProps,{authMe,logOutMe})(HeaderContainer) ;
