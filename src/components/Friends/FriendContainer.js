@@ -5,18 +5,22 @@ import {
     getUsers, followUser, unfollowUser
 } from "../../redux/friendsReducer";
 import Users from "./Users";
-import UsersLocal from "./UsersLocal";
+// import UsersLocal from "./UsersLocal";
 import {compose} from "redux";
-import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+// import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {
+    getCurrentPage, getIsFollowClicked,
+    getIsLoadingStatus, getPerPage, getTotalPage, getUsersSelector
+} from "../../redux/friendsSelectors";
 
 let mapStateToProps = state => {
     return {
-        users: state.friendsPage.users,
-        currentPage: state.friendsPage.currentPage,
-        perPage: state.friendsPage.perPage,
-        totalPage: state.friendsPage.totalPage,
-        isLoadingStatus: state.friendsPage.isLoadingStatus,
-        isFollowClicked: state.friendsPage.isFollowClicked
+        users: getUsersSelector(state),
+        currentPage: getCurrentPage(state),
+        perPage: getPerPage(state),
+        totalPage: getTotalPage(state),
+        isLoadingStatus: getIsLoadingStatus(state),
+        isFollowClicked: getIsFollowClicked(state)
     }
 }
 

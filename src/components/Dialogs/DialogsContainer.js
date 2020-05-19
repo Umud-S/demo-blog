@@ -8,10 +8,9 @@ import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 let mapStateToProps = state => {
     return {
         messagePage: state.messagePage,
-        isAuth: state.auth.isAuth
+        // isAuth: state.auth.isAuth
     }
 }
-
 class DialogsContainer extends React.Component{
     render() {
         return <Dialogs {...this.props}/>

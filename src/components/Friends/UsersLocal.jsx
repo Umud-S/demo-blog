@@ -1,6 +1,6 @@
 import React from "react";
 import style from './Friends.module.css';
-import IsLoading from "../common/IsLoading/IsLoading";
+import ShowLoadingAnimation from "../common/ShowLoadingAnimation/ShowLoadingAnimation";
 import UserLocal from "./User/UserLocal";
 
 
@@ -35,7 +35,7 @@ const UsersLocal = (props) => {
     //page pagination
 
     return <div className={style.friendsContent}>
-        {(props.isLoadingStatus) ? <IsLoading/> : ''}
+        {(props.isLoadingStatus) ? <ShowLoadingAnimation/> : ''}
         {friendItem}
         <button onClick={props.onMoreButtonClick} className={style.buttonReadMore}>Read More..</button>
         <div className={style.pagination}>

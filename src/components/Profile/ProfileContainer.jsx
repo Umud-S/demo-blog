@@ -9,13 +9,22 @@ import {compose} from "redux";
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
     isLoadingStatus: state.profilePage.isLoadingStatus,
-    status:state.profilePage.status
+    status:state.profilePage.status,
+    loggedUserId:state.auth.userId,
+    isAuth:state.auth.isAuth,
 })
 class ProfileContainer extends React.Component {
     componentDidMount() {
         let userId = this.props.match.params.userId;  //userin- id-sini elde edirik
+        // if(!userId) {
+        //     userId=this.props.loggedUserId;
+        //     if(!userId) {
+        //         this.props.history.push('/login');
+        //     }
+        // }
+
         this.props.getProfile(userId);
-        this.props.getStatus(userId)
+        this.props.getStatus(userId);
     }
     render() {
         return (<div>

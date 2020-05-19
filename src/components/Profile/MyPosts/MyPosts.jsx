@@ -26,6 +26,7 @@ const ProfileMyPostAddForm = (props) => {
 }
 const WithProfileMyPostAddForm = reduxForm({form: 'addPostForm'})(ProfileMyPostAddForm)
 const MyPosts = (props) => {
+    // console.log('renderMyPost')
     let posts = props.posts;
     let postDatas = posts.map(posts => (
         <Post message={posts.message} likes={posts.likes}/>

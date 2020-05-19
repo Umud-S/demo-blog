@@ -33,6 +33,7 @@ const LoginForm = (props) => {
                        component={Input}
                 />remember me
             </div>
+            {props.error && <div>{props.error}</div>}
             <div>
                 <button>Login</button>
             </div>
@@ -43,14 +44,6 @@ const LoginForm = (props) => {
 const LoginReduxForm = reduxForm({
     form: 'login'
 })(LoginForm)
-
-
-// export default compose(
-//     connect(mapStateToProps),
-//     reduxForm({
-//         form:'login'
-//     })
-// )(LoginForm)
 const Login = (props) => {
     const onSubmitToLogin = (formData) => {
         props.loginMe(formData.email,formData.password,formData.rememberMe);
@@ -69,3 +62,12 @@ const mapStateToProps=(state)=>({
 export default connect(mapStateToProps,{
     loginMe
 }) (Login);
+
+
+
+// export default compose(
+//     connect(mapStateToProps),
+//     reduxForm({
+//         form:'login'
+//     })
+// )(LoginForm)

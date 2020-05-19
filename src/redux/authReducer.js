@@ -1,5 +1,6 @@
 import React from 'react';
 import {authAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA='SET_USER_DATA';
 export const setUserData=(id,email,login,isAuth)=>{
@@ -18,18 +19,10 @@ export const isLoading=(isLoadingStatus)=>{
         isLoadingStatus
     }
 }
-const LOGIN='LOGIN';
-// export const loginToSite=(userId)=>{
-//     return {
-//         type: LOGIN,
-//         userId
-//     }
-// }
+
 let initialState = {
-    id: null,
+    userId: null,
     email: null,
-    password:null,
-    rememberMe:null,
     login: null,
     isAuth:false,
     isLoadingStatus:false
@@ -70,7 +63,10 @@ export const loginMe=(email,password,rememberMe)=>{
         authAPI.login(email,password,rememberMe).then(response=>{
                 if(response.resultCode===0){
                     dispatch(authMe());
-                    }
+                    }else{
+                    dispatch(stopSubmit('login', {_error:'Something is wrong'}))
+                }
+
         })
     }
 }
@@ -83,6 +79,4 @@ export const logOutMe=()=>{
         })
     }
 }
-
-
 export default authReducer;

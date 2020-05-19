@@ -1,12 +1,10 @@
 import React from 'react';
 import Header from "./Header";
 import {connect} from "react-redux";
-import {authMe,logOutMe} from "../../redux/authReducer";
+import {logOutMe} from "../../redux/authReducer";
 
 class HeaderContainer extends React.Component{
-    componentDidMount() {
-       this.props.authMe();    //check User logged
-    }
+
     render() {
         return (
             <Header {...this.props} />// insert all props list to component
@@ -18,4 +16,10 @@ let mapStateToProps=(state)=>({
     login:state.auth.login
 })
 // with react-redux connect method we give state and thunk from reducer to Container component
-export default connect(mapStateToProps,{authMe,logOutMe})(HeaderContainer) ;
+export default connect(mapStateToProps,{logOutMe})(HeaderContainer) ;
+
+
+
+// componentDidMount() {
+//    this.props.authMe();    //check User logged
+// }
