@@ -47,36 +47,31 @@ let authReducer = (state = initialState, action) => {
 }
 
 export const authMe=()=>{
-    return(dispatch)=>{
-        authAPI.auth()
-            .then(response=>{
+    return async (dispatch)=>{
+        let response= await authAPI.auth()
                 // debugger;
                 if(response.resultCode===0){                //user eger saytda qeydiyyatdan kecibse sifir qaytarir
                     let {id, login, email}=response.data;   // datani parchalayiriq
                     dispatch(setUserData(id, email, login,true)); // datani gonderirik yeni state kimi
                 }
-            })
     }
 }
 export const loginMe=(email,password,rememberMe)=>{
-    return (dispatch)=>{
-        authAPI.login(email,password,rememberMe).then(response=>{
+    return async (dispatch)=>{
+        let response= await authAPI.login(email,password,rememberMe);
                 if(response.resultCode===0){
                     dispatch(authMe());
                     }else{
                     dispatch(stopSubmit('login', {_error:'Something is wrong'}))
                 }
-
-        })
     }
 }
 export const logOutMe=()=>{
-    return (dispatch)=>{
-        authAPI.logOut().then(response=>{
+    return async (dispatch)=>{
+        let response= await authAPI.logOut();
                 if(response.resultCode===0){
                     dispatch(setUserData(null, null, null,false))
                     }
-        })
     }
 }
 export default authReducer;

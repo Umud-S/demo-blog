@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import {logOutMe} from "../../redux/authReducer";
 
 class HeaderContainer extends React.Component{
-
     render() {
         return (
             <Header {...this.props} />// insert all props list to component

@@ -57,7 +57,7 @@
 
 .contentBorder {
     border: 5px solid green;
-    border-image: url(https://www.w3schools.com/cssref/border.png) 25 stretch;
+    border-image: url(./../assets/border.png) 25 stretch;
     margin-left: 5px;
 }
 
@@ -109,11 +109,4 @@
 .paginationSpan span:active{
     font-size: 18px;
     color: red;
-}
-.active{
-    position: relative;
-    /*padding: 6px;*/
-    bottom: 2px;
-    font-size: 20px;
-    color: black;
 }

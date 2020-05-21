@@ -31,7 +31,6 @@ export const initialiseAPP = () => {
             .then(() => {
                 dispatch(setDataInitialise());
             })
-
     }
 }
 

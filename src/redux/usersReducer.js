@@ -1,19 +1,19 @@
 import React from 'react';
 import {followAPI, usersAPI} from "../api/api";
+import {updateObjectInArray} from "../utils/helpers";
 
 const FOLLOW = 'FOLLOW';
 export const follow = (userId) => {
     return {
         type: FOLLOW,
-        userId: userId
+        userId
     }
 }
-
 const UNFOLLOW = 'UNFOLLOW';
 export const unfollow = (userId) => {
     return {
         type: UNFOLLOW,
-        userId: userId
+        userId
     }
 }
 
@@ -36,7 +36,6 @@ export const setPerPage = (perPage) => {
     return {
         type: SET_PER_PAGE,
         perPage   // sinonim perPage:perPage
-
     }
 }
 
@@ -55,11 +54,11 @@ export const isLoading = (isLoadingStatus) => {
     }
 }
 const IS_FOLLOW_CLICKED = 'IS_FOLLOW_CLICKED';
-export const followClickedToggle = (isFollowClicked, id) => {
+export const followClickedToggle = (isFollowClicked, userId) => {
     return {
         type: IS_FOLLOW_CLICKED,
         isFollowClicked,
-        id
+        userId
     }
 }
 let initialState = {
@@ -70,7 +69,9 @@ let initialState = {
     isLoadingStatus: false,
     isFollowClicked: []
 }
-let friendsReducer = (state = initialState, action) => {
+
+
+let usersReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case SET_USERS: {
@@ -83,31 +84,24 @@ let friendsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isFollowClicked: action.isFollowClicked
-                    ? [...state.isFollowClicked, action.id]
-                    : state.isFollowClicked.filter(id => id != action.id)
+                    ? [...state.isFollowClicked, action.userId]
+                    : state.isFollowClicked.filter(id => id != action.userId)
             }
         case FOLLOW: {
             return {
                 ...state,
-                users: state.users.map(u => {
-                        if (u.id == action.userId) {
-                            return {...u, followed: true}
-                        }
-                        return u
-                    }
-                )
+                users: updateObjectInArray(state.users,action.userId,'id',{followed: true})
+
             }
         }
         case UNFOLLOW: {
             return {
                 ...state,
-                users: state.users.map(u => {
-                        if (u.id == action.userId) {
-                            return {...u, followed: false}
-                        }
-                        return u
-                    }
-                )
+                users: updateObjectInArray(state.users,action.userId,'id',{followed: false})
+                // users: state.users.map(u=>{
+                //     if(u.id==action.userId) return {...u,isFollowClicked: false}
+                //     return u
+                // })
             }
         }
         case SET_CURRENT_PAGE:
@@ -136,41 +130,34 @@ let friendsReducer = (state = initialState, action) => {
 }
 
 export const getUsers = (currentPage, perPage) => {  //Thunkcreater
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(isLoading(true));
-        usersAPI.getUsers(currentPage, perPage)
-            .then(response => {
-                    dispatch(isLoading(false));
-                    dispatch(setUsers(response.items));
-                    dispatch(setTotalPage(response.totalCount));
-                }
-            )
+        let response = await usersAPI.getUsers(currentPage, perPage);
+        dispatch(isLoading(false));
+        dispatch(setUsers(response.items));
+        dispatch(setTotalPage(response.totalCount));
     }
 }
+const followUnfollowAsync = async (dispatch, apiMethod, actionCreator, userId) => {
+    dispatch(followClickedToggle(true, userId));
+    let response = await apiMethod(userId);
+    if (response.resultCode === 0) {
+        dispatch(actionCreator(userId));
+    }
+    dispatch(followClickedToggle(false, userId));
+}
+
 export const followUser = (userId) => {
-    return (dispatch) => {
-        dispatch(followClickedToggle(true,userId));
-        followAPI.follow(userId)
-            .then(response => {
-                // console.log(response);
-                if (response.resultCode === 0) {
-                    dispatch(follow(userId));
-                }
-                dispatch(followClickedToggle(false,userId));
-            })
+    return  async (dispatch) => {
+         followUnfollowAsync(dispatch, followAPI.follow.bind(followAPI), follow, userId)
     }
 }
 export const unfollowUser = (userId) => {
-    return (dispatch) => {
-        dispatch(followClickedToggle(true,userId));
-        followAPI.unfollow(userId)
-            .then(response => {
-                // console.log(response);
-                if (response.resultCode === 0) {
-                    dispatch(unfollow(userId));
-                }
-                dispatch(followClickedToggle(false,userId));
-            })
+    // let apiMethod = followAPI.unfollow.bind(followAPI);
+    // let actionCreator = unfollow;
+    return async (dispatch) => {
+         followUnfollowAsync(dispatch, followAPI.unfollow.bind(followAPI), unfollow, userId)
     }
 }
-export default friendsReducer;
+
+export default usersReducer;

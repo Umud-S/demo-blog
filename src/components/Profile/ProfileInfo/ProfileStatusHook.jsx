@@ -6,7 +6,7 @@ const ProfileStatusHook =(props)=>{
     let [editMode,setEditMode]=useState(false); //destructer use state two part element and setElement func
     let[status,setStatus]=useState(props.status);
 
-    //after some update on props component will rerender and show new state
+    //after some update on props component will rerender and show new state/old class shouldUpdate
     useEffect(()=>{
         setStatus(props.status)
     },[props.status]);

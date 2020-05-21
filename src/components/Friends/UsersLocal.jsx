@@ -1,5 +1,5 @@
 import React from "react";
-import style from './Friends.module.css';
+import style from './Users.module.css';
 import ShowLoadingAnimation from "../common/ShowLoadingAnimation/ShowLoadingAnimation";
 import UserLocal from "./User/UserLocal";
 

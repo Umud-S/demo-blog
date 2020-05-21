@@ -34,7 +34,6 @@ let dialogReducer = (state=initialState, action) => {
                 messages : [...state.messages, newMessage],
             }
         }
-
         default :
             return state;
     }

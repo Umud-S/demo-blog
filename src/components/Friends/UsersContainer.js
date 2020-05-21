@@ -3,15 +3,14 @@ import {connect} from "react-redux";
 import {
     setCurPage, setPerPage,
     getUsers, followUser, unfollowUser
-} from "../../redux/friendsReducer";
+} from "../../redux/usersReducer";
 import Users from "./Users";
 // import UsersLocal from "./UsersLocal";
 import {compose} from "redux";
-// import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {
     getCurrentPage, getIsFollowClicked,
     getIsLoadingStatus, getPerPage, getTotalPage, getUsersSelector
-} from "../../redux/friendsSelectors";
+} from "../../redux/usersSelectors";
 
 let mapStateToProps = state => {
     return {
@@ -26,23 +25,24 @@ let mapStateToProps = state => {
 
 class UserContainer extends React.Component {
     componentDidMount() {
-        // debugger;
-        this.props.getUsers(this.props.currentPage, this.props.perPage);
+        let {getUsers, currentPage, perPage} = this.props;
+        getUsers(currentPage, perPage);
     }
 
     onPageChanged = (pageNumber) => {
-        if (pageNumber != this.props.currentPage) {
-            this.props.setCurPage(pageNumber);
-            this.props.getUsers(pageNumber, this.props.perPage);
+        let {getUsers, currentPage, perPage, setCurPage} = this.props;
+        if (pageNumber != currentPage) {
+            setCurPage(pageNumber);
+            getUsers(pageNumber, perPage);
         }
     }
     onMoreButtonClick = () => {
-        // debugger;
-        this.props.setPerPage(this.props.perPage + 5);
-        let newPageSize = this.props.perPage + 5;
-        this.props.getUsers(this.props.currentPage,newPageSize);
-
+        let {getUsers, currentPage, perPage, setPerPage} = this.props;
+        setPerPage(perPage + 5);
+        let newPageSize = perPage + 5;
+        getUsers(currentPage, newPageSize);
     }
+
     render() {
         return <Users {...this.props}
                       onPageChanged={this.onPageChanged}
@@ -50,6 +50,7 @@ class UserContainer extends React.Component {
         />
     }
 }
+
 export default compose(
     // WithAuthRedirect,
     connect(mapStateToProps, {

@@ -9,11 +9,12 @@ export const addPost = (newText) => {//ActionCreater
     }
 }
 
-const SET_PROFILE='SET-PROFILE';
-export const setProfile=(profile)=>{
-        return {type: SET_PROFILE,
-            profile
-        }
+const SET_PROFILE = 'SET-PROFILE';
+export const setProfile = (profile) => {
+    return {
+        type: SET_PROFILE,
+        profile
+    }
 }
 const IS_LOADING = 'IS_LOADING';
 export const isLoading = (isLoadingStatus) => {
@@ -29,26 +30,33 @@ export const setStatus = (status) => {
         status
     }
 }
+const DELETE_POST = 'DELETE_POST';
+export const deletePost = (postId) => {
+    return {
+        type: DELETE_POST,
+        postId
+    }
+}
 
-let initialState={
+let initialState = {
     posts: [
         {id: 1, message: 'salam', likes: 15},
         {id: 2, message: 'Eleyke salam', likes: 35}
     ],
-    profile:[],
-    isLoadingStatus:true,
-    status:'status no loaded yet'
+    profile: [],
+    isLoadingStatus: true,
+    status: 'status no loaded yet'
 }
 
-let profileReducer = (state=initialState, action) => {
+let profileReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_PROFILE:{
+        case SET_PROFILE: {
             return {
                 ...state,
                 profile: [action.profile]
             }
         }
-        case SET_STATUS:{
+        case SET_STATUS: {
             return {
                 ...state,
                 status: action.status
@@ -62,10 +70,15 @@ let profileReducer = (state=initialState, action) => {
             }
             return {
                 ...state,
-                posts : [...state.posts, newPost],
+                posts: [...state.posts, newPost],
             }
 
         }
+        case DELETE_POST:
+            return {
+                ...state,
+                posts: state.posts.filter(post => post.id != action.postId)
+            }
         case IS_LOADING:
             return {
                 ...state,
@@ -75,34 +88,26 @@ let profileReducer = (state=initialState, action) => {
             return state;
     }
 }
-export  const getProfile=(userId)=> {
-    return (dispatch) => {
+export const getProfile = (userId) => {
+    return async (dispatch) => {
         dispatch(isLoading(true));
-        profileAPI.getProfile(userId)
-            .then(response => {
-                // debugger;
-                dispatch(isLoading(false));
-                dispatch(setProfile(response))
-            })
+        let response = await profileAPI.getProfile(userId);
+        dispatch(isLoading(false));
+        dispatch(setProfile(response));
     }
 }
-export const getStatus=(userId)=>{
-    return (dispatch)=>{
-        // dispatch(isLoading(true));
-        profileAPI.getStatus(userId).then(response=>{
-            // console.log(response);
-            // dispatch(isLoading(false));
-            dispatch(setStatus(response))
-        })
+export const getStatus = (userId) => {
+    return async (dispatch) => {
+        let response = await profileAPI.getStatus(userId);
+        dispatch(setStatus(response));
     }
 }
-export const updateStatus=(status)=>{
-    return (dispatch)=>{
-        profileAPI.updateStatus(status).then(response=>{
-            if(response.resultCode===0) {
-                dispatch(setStatus(status))
-            }
-        })
+export const updateStatus = (status) => {
+    return async (dispatch) => {
+        let response = await profileAPI.updateStatus(status);
+        if (response.resultCode === 0) {
+            dispatch(setStatus(status))
+        }
     }
 }
 export default profileReducer;
@@ -113,7 +118,6 @@ export default profileReducer;
 // stateCopy.posts.push(newPost);
 // stateCopy.newPostText = '';
 // return stateCopy;
-
 
 
 // stateCopy.newPostText = action.newText;

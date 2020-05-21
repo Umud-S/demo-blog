@@ -20,7 +20,7 @@ export default compose(
     connect(mapStateToProps, {
         addMessage
     }),
-    WithAuthRedirect
+    // WithAuthRedirect
 )(DialogsContainer)
 
 // const DialogsContainer = (props) => {

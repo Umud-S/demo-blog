@@ -6,11 +6,11 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import FriendsContainer from "./components/Friends/FriendContainer";
+import FriendsContainer from "./components/Friends/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginPage from "./components/Login/Login";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initialiseAPP} from "./redux/appReducer";
 import ShowLoadingAnimation from "./components/common/ShowLoadingAnimation/ShowLoadingAnimation";
@@ -21,11 +21,10 @@ class App extends React.Component {
     }
 
     render() {
-        if(!this.props.initialised) {
+        if (!this.props.initialised) {
             return <ShowLoadingAnimation/>
         }
-        return (
-            <div className='app-wrapper'>
+        return (<div className='app-wrapper'>
                 <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
@@ -44,8 +43,8 @@ class App extends React.Component {
     }
 }
 
-const  mapStateToProps=(state)=>({
-    initialised:state.app.initialised
+const mapStateToProps = (state) => ({
+    initialised: state.app.initialised
 })
 export default compose(
     withRouter,
