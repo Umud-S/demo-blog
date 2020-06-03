@@ -1,47 +1,47 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "435ab291f8421adefebcbfb52fabedc6",
+    "revision": "65615dfff55c2cf20bd3cbe3ec6e3f24",
     "url": "/demo-blog/index.html"
   },
   {
-    "revision": "10d17a07597fac02ed12",
+    "revision": "0ad5ea753e0a188ead3f",
     "url": "/demo-blog/static/css/3.c0b696a9.chunk.css"
   },
   {
-    "revision": "a820432bd6264be9e0ff",
+    "revision": "5d2ee0b5cf044b5fe9ae",
     "url": "/demo-blog/static/css/4.beae0cb1.chunk.css"
   },
   {
-    "revision": "b2e4e5c61fdecfff52ed",
+    "revision": "cbb3d8ee35769300ffa3",
     "url": "/demo-blog/static/css/main.07a40bb4.chunk.css"
   },
   {
-    "revision": "d4baf600ddd9423d92d9",
-    "url": "/demo-blog/static/js/2.e6d9de31.chunk.js"
+    "revision": "4cb364a314f019ed3ae5",
+    "url": "/demo-blog/static/js/2.d106dc66.chunk.js"
   },
   {
     "revision": "4bf00ea42f5dad8ab33d5f32afec9baf",
-    "url": "/demo-blog/static/js/2.e6d9de31.chunk.js.LICENSE.txt"
+    "url": "/demo-blog/static/js/2.d106dc66.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "10d17a07597fac02ed12",
-    "url": "/demo-blog/static/js/3.2b4ffc8d.chunk.js"
+    "revision": "0ad5ea753e0a188ead3f",
+    "url": "/demo-blog/static/js/3.0e6340ef.chunk.js"
   },
   {
-    "revision": "a820432bd6264be9e0ff",
-    "url": "/demo-blog/static/js/4.fea6c2f7.chunk.js"
+    "revision": "5d2ee0b5cf044b5fe9ae",
+    "url": "/demo-blog/static/js/4.21f656db.chunk.js"
   },
   {
     "revision": "7589f89982a93eb11510",
     "url": "/demo-blog/static/js/5.7b57f169.chunk.js"
   },
   {
-    "revision": "b2e4e5c61fdecfff52ed",
-    "url": "/demo-blog/static/js/main.9d7731aa.chunk.js"
+    "revision": "cbb3d8ee35769300ffa3",
+    "url": "/demo-blog/static/js/main.e9cd35f9.chunk.js"
   },
   {
-    "revision": "0c217ede47bcb6892d5d",
-    "url": "/demo-blog/static/js/runtime-main.56a8b39b.js"
+    "revision": "b9702ce543b6e4be983c",
+    "url": "/demo-blog/static/js/runtime-main.0d85334d.js"
   },
   {
     "revision": "2fa3d9fc24a9fbf9f202c6aab55f12d8",
